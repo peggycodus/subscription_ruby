@@ -39,12 +39,27 @@ end
 
 describe ('Payment') do
 
-before do
+  before do
     Payment.clear
   end
+
   it 'creates an instance of a payment with a hash of attributes' do
     test_payment = Payment.new(:amount=> '99.00', :payment_method=> 'amex 9898', :subscription_name=>'Pluralsight', :date_paid=>'04/12/2014')
     expect(test_payment).to be_an_instance_of Payment
+  end
+
+  describe '#save' do
+    it 'adds a payment to the array of saved payments' do
+      test_payment = Payment.new(:amount=> '99.00', :payment_method=> 'amex 9898', :subscription_name=>'Pluralsight', :date_paid=>'04/12/2014')
+      test_payment.save
+      expect(Payment.all).to eq [test_payment]
+    end
+  end
+
+  describe '.all' do
+    it 'is empty at first' do
+      expect(Payment.all).to eq []
+    end
   end
 
   describe '.clear' do
@@ -54,5 +69,14 @@ before do
       expect(Payment.all).to eq []
       end
   end
+end
+
+describe ('Account') do
+
+    it 'creates an instance of a account with a hash of attributes' do
+    test_account = Account.new(:subscription_name=> 'Treehouse', :number=> '12345', :URL=> 'www.teamtreehouse.com', :user_id=>'happyCoder', :password=>'hardtoguess')
+    expect(test_account).to be_an_instance_of Account
+  end
+
 end
 
