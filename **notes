@@ -1,0 +1,34 @@
+**notes
+
+For this assessment, write a program uses OO in Ruby, using at least 2 classes. You can make up your own idea of something to build, or you can work on an exercise from the past section that you didn't get to earlier.
+
+The evaluation criteria are almost the same as from the OO in JavaScript week:
+
+Does your code continue to meet all of the standards from last week?
+Did you use objects to drive your application logic?
+Did you use an array as a property of one class that contained objects of the other class?
+Did you use class methods and variables appropriately?
+
+**classes
+
+payments
+  amount
+  date_paid
+  paid_to
+  payment_method
+  subscription_name
+  account_number
+subscriptions
+  name
+  type
+  subject
+  deductible
+  price
+  frequency
+  renewal_date
+account
+  user_id
+  account_number
+  pw
+  url
+
