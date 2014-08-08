@@ -73,9 +73,35 @@ end
 
 describe ('Account') do
 
+  before do
+    Account.clear
+  end
+
     it 'creates an instance of a account with a hash of attributes' do
-    test_account = Account.new(:subscription_name=> 'Treehouse', :number=> '12345', :URL=> 'www.teamtreehouse.com', :user_id=>'happyCoder', :password=>'hardtoguess')
+    test_account = Account.new(:subscription_name=> 'Treehouse', :number=> '12345', :url_site=> 'www.teamtreehouse.com', :user_id=>'happyCoder', :password=>'hardtoguess')
     expect(test_account).to be_an_instance_of Account
+  end
+
+  describe '#save' do
+    it 'adds a account to the array of saved accounts' do
+      test_account = Account.new(:subscription_name=> 'Treehouse', :number=> '12345', :url_site=> 'www.teamtreehouse.com', :user_id=>'happyCoder', :password=>'hardtoguess')
+      test_account.save
+      expect(Account.all).to eq [test_account]
+    end
+  end
+
+  describe '.all' do
+    it 'is empty at first' do
+      expect(Account.all).to eq []
+    end
+  end
+
+  describe '.clear' do
+      it 'empties out all of the saved accounts' do
+      Account.new(:subscription_name=> 'Treehouse', :number=> '12345', :url_site=> 'www.teamtreehouse.com', :user_id=>'happyCoder', :password=>'hardtoguess').save
+      Account.clear
+      expect(Account.all).to eq []
+      end
   end
 
 end

@@ -27,6 +27,7 @@ subscription
   frequency
   renewal_date
 account
+  subscription_name
   user_id
   account_number
   pw

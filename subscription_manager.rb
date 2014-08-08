@@ -18,13 +18,17 @@ def main_menu
     puts "Enter 'tax' to list all subscriptions and the total deduction for this and last tax year"
     puts "Press 'x' to exit."
     main_choice = gets.chomp
-    if main_choice == 'as'
+    if main_choice == 'a'
       add_subscription
     elsif main_choice == 'es'
       edit_subscription
 
     elsif main_choice == 'all'
       list_all_subscriptions
+    elsif main_choice == 'all-pay'
+    list_all_payments
+    elsif main_choice == 'all-act'
+    list_all_accounts
 
     elsif main_choice == 'date'
       list_all_subscriptions_by_renewal_date
@@ -60,11 +64,13 @@ def add_subscription
   puts "Enter a renewal date: (MM/DD/YY)"
   renewal_date = gets.chomp
 
-  @subscription << Subscription.new(:name=>'name', :type=>'type', :price=>'price', :frequency=>'frequency',:subject=>'subject', :deductible=>'deductible', :renewal_date=>'renewal_date')
+  @subscription << Subscription.new(:name=>'name', :type=>'type', :price=>'price', :frequency=>'frequency',:subject=>'subject', :deductible=>'deductible', :renewal_date=>'renewal_date').save
   puts "Subscription added.\n\n"
 
   puts "Would you like to record a payment now? (Y/N)"
-  if payment_response == Y
+  payment_response = gets.chomp
+
+  if payment_response == ('Y' || 'y' || 'yes')
 
     puts "Please enter a payment amount:"
     amount = gets.chomp
@@ -73,14 +79,18 @@ def add_subscription
     puts "Please enter a payment date the subscription was paid:"
     paid_date = gets.chomp
     puts "Please enter a payment method:"
+    payment_response = ""
     payment_method = gets.chomp
 
     add_payment
     puts "Would you like to add your online account information now? (Y/N)"
-    if account_response == Y
+    account_response = ""
+    account_response = gets.chomp
+
+    if account_response == ('Y' || 'y' || 'yes')
 
       puts "Please enter a URL for this account:"
-      URL = gets.chomp
+      url_site = gets.chomp
       puts "Please enter your account number for this account:"
       number = gets.chomp
       puts "Please enter a URL for this account:"
@@ -95,26 +105,26 @@ def add_subscription
     end
 
   else
-      main-menu
+      main_menu
   end
 end
 
 def list_all_subscriptions
   puts "Here are all of your subscriptions:"
   @subscription.each do |name|
-    tp Subscription.all :name, :type, :frequency, :price
+    tp Subscription.all, :name, :type, :frequency, :price
   end
   puts "\n"
   puts "\n"
 end
 
 def add_payment
-  @payment << Payment.new(:subscription_name=>'name', :amount=>'amount', :paid_date=>'paid_date', :due_date=>'due_date',:payment_method=>'payment_method')
+  @payment << Payment.new(:subscription_name=>'name', :amount=>'amount', :paid_date=>'paid_date', :due_date=>'due_date',:payment_method=>'payment_method').save
   puts "Payment added.\n\n"
 end
 
 def add_account
-  @account << Account.new(:subscription_name=>'name', :URL=>'URL', :user_id=>'user_id', :password=>'password')
+  @account << Account.new(:subscription_name=>'name', :url_site=>'url_site', :user_id=>'user_id', :password=>'password').save
   puts "Account added.\n\n"
 end
 
