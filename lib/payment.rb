@@ -1,4 +1,4 @@
-@@subscription = []
+@@all_payments = []
 
   class Payment
 
@@ -11,5 +11,17 @@
       @subscription_name = attributes[:subscription_name]
       @payment_method = attributes[:payment_method]
     end
+
+    def save
+      @@all_payments << self
+    end
+
+    def Payment.all
+        @@all_payments
+    end
+
+    def Payment.clear
+        @@all_payments = []
+      end
   end
 

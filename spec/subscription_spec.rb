@@ -39,9 +39,20 @@ end
 
 describe ('Payment') do
 
+before do
+    Payment.clear
+  end
   it 'creates an instance of a payment with a hash of attributes' do
     test_payment = Payment.new(:amount=> '99.00', :payment_method=> 'amex 9898', :subscription_name=>'Pluralsight', :date_paid=>'04/12/2014')
     expect(test_payment).to be_an_instance_of Payment
+  end
+
+  describe '.clear' do
+      it 'empties out all of the saved payments' do
+      Payment.new(:amount=> '99.00', :payment_method=> 'amex 9898', :subscription_name=>'Pluralsight', :date_paid=>'04/12/2014').save
+      Payment.clear
+      expect(Payment.all).to eq []
+      end
   end
 end
 

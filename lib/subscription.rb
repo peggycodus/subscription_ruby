@@ -1,5 +1,4 @@
-
-@@subscription = []
+@@all_subscriptions = []
 
 	class Subscription
 
@@ -15,16 +14,18 @@
 			@subject = attributes[:subject]
 		end
 
-		def Subscription.all
-    		@@all_subscriptions
-  		end
 
-  		def Subscription.clear
-    		@@all_subscriptions = []
-  		end
 
-  		def save
-    		@@all_subscriptions << self
-  		end
+		def Subscription.clear
+  		@@all_subscriptions = []
+		end
+
+		def save
+  		@@all_subscriptions << self
+		end
+
+    def Subscription.all
+        @@all_subscriptions
+    end
 	end
 
