@@ -9,7 +9,7 @@ describe ('Subscription') do
     Subscription.clear
   end
 
-  it ' creates an instance of a subscription with a hash of attributes ' do
+  it 'creates an instance of a subscription with a hash of attributes ' do
     test_subscription = Subscription.new({:name => 'Treehouse', :type =>'online course', :price => '25.00'})
     expect(test_subscription).to be_an_instance_of Subscription
   end
@@ -32,16 +32,16 @@ describe ('Subscription') do
 
   describe '.all' do
     it 'is empty at first' do
-      Subscription.all.should eq []
+      expect(Subscription.all).to eq []
     end
   end
 end
 
-# describe ('Payment') do
+describe ('Payment') do
 
-#   it 'is creates an instance of a payment with a hash of attributes' do
-#     test_payment = Subscription.new('amount', "payment_method", "subscription_name, date_paid")
-#     expect(test_payment).to be_an_instance_of Payment
-#   end
-# end
+  it 'creates an instance of a payment with a hash of attributes' do
+    test_payment = Payment.new(:amount=> '99.00', :payment_method=> 'amex 9898', :subscription_name=>'Pluralsight', :date_paid=>'04/12/2014')
+    expect(test_payment).to be_an_instance_of Payment
+  end
+end
 

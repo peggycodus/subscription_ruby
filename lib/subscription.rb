@@ -13,8 +13,6 @@
 			@deductible = attributes[:deductible]
 			@renewal_date = attributes[:renewal_date]
 			@subject = attributes[:subject]
-
-			puts 'A new instance has been initialized.'
 		end
 
 		def Subscription.all
