@@ -7,45 +7,41 @@ describe ('Subscription') do
 
 	before do
     Subscription.clear
-  	end
+  end
 
-  it ' creates an instance of a subscription ' do
-    test_subscription = Subscription.new('Treehouse', "online course", "25.00")
-    test_subscription.should be_an_instance_of Subscription
+  it ' creates an instance of a subscription with a hash of attributes ' do
+    test_subscription = Subscription.new({:name => 'Treehouse', :type =>'online course', :price => '25.00'})
+    expect(test_subscription).to be_an_instance_of Subscription
   end
 
 	describe '.clear' do
 	  	it 'empties out all of the saved subscriptions' do
-		  Subscription.new('Spectrum', "digital magazine", "45.00").save
+		  Subscription.new(:name =>'Spectrum', :type =>'digital magazine', :price =>'45.00').save
 		  Subscription.clear
-		  Subscription.all.should eq []
+		  expect(Subscription.all).to eq []
 	    end
 	end
 
 	describe '#save' do
     it 'adds a subscription to the array of saved subscriptions' do
-      test_subscription = Subscription.new('Code School', "online course", "25.00")
+      test_subscription = Subscription.new(:name =>'Spectrum', :type =>'digital magazine', :price =>'45.00')
       test_subscription.save
-      Subscription.all.should eq [test_subscription]
+      expect(Subscription.all).to eq [test_subscription]
     end
+  end
 
-    describe 'list_all_subscriptions_by_name' do
-    it 'puts a list of all subscriptions sorted by name to the terminal' do
-    	test_subscription1 = Subscription.new('Code School', "online course", "25.00")
-    	test_subscription2 = Subscription.new('Thoughbot Learn', "online course", "49.00")
-    	test_subscription3 = Subscription.new('Pluralsight', "online course", "49.00")
-    	test_subscription4 = Subscription.new('Safari Online', "digital publications", "42.99")
-    	test_subscription.save
-      expect Subscription.list_all_subscriptions_by_name.to be eq ['Code School', 'Pluralsight', 'Safari Online', 'Thoughtbot Learn']
-
+  describe '.all' do
+    it 'is empty at first' do
+      Subscription.all.should eq []
+    end
   end
 end
 
-describe ('Payment') do
+# describe ('Payment') do
 
-  it 'is creates an instance of a payment' do
-    test_payment = Subscription.new('amount', "payment_method", "subscription_name, date_paid")
-    expect(test_payment).to be_an_instance_of Payment
-  end
-end
+#   it 'is creates an instance of a payment with a hash of attributes' do
+#     test_payment = Subscription.new('amount', "payment_method", "subscription_name, date_paid")
+#     expect(test_payment).to be_an_instance_of Payment
+#   end
+# end
 

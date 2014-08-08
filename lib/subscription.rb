@@ -3,19 +3,16 @@
 
 	class Subscription
 
-  attr
+  attr :name, :type, :deductible, :subject, :price, :frequency
 
-		def initialize (name, type = "online course", price)
-			@name = name
-			@type = type
-
-			@price = price
-			@frequency = ""
-			@deductible = ""
-			@account_id = ""
-			@password = ""
-			@last_renewal_date = ""
-			@subject = ""
+		def initialize (attributes)
+			@name = attributes[:name]
+			@type = attributes[:type]
+      @price = attributes[:price]
+			@frequency = attributes[:frequency]
+			@deductible = attributes[:deductible]
+			@renewal_date = attributes[:renewal_date]
+			@subject = attributes[:subject]
 
 			puts 'A new instance has been initialized.'
 		end

@@ -11,14 +11,14 @@ Did you use class methods and variables appropriately?
 
 **classes
 
-payments
+payment
   amount
   date_paid
   paid_to
   payment_method
   subscription_name
   account_number
-subscriptions
+subscription
   name
   type
   subject
