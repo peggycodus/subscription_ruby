@@ -2,6 +2,7 @@ require './lib/subscription'
 require './lib/payment'
 require './lib/account'
 require 'table_print'
+require 'Chronic'
 
 @subscription = []
 
@@ -64,10 +65,11 @@ def add_subscription
   puts "Enter a renewal date: (MM/DD/YY)"
   renewal_date = gets.chomp
 
-  @subscription << Subscription.new(:name=>'name', :type=>'type', :price=>'price', :frequency=>'frequency',:subject=>'subject', :deductible=>'deductible', :renewal_date=>'renewal_date').save
+  @subscription << Subscription.new(:name=> name, :type=> type , :price => price , :frequency => frequency ,:subject => subject , :deductible => deductible, :renewal_date => renewal_date).save
   puts "Subscription added.\n\n"
 
   puts "Would you like to record a payment now? (Y/N)"
+  payment_response = ""
   payment_response = gets.chomp
 
   if payment_response == ('Y' || 'y' || 'yes')
@@ -75,14 +77,16 @@ def add_subscription
     puts "Please enter a payment amount:"
     amount = gets.chomp
     puts "Please enter a payment date the subscription was due:"
-    due_date = gets.chomp
+    due_date= gets.chomp
+    due_date = Chronic.parse(due_date)
     puts "Please enter a payment date the subscription was paid:"
     paid_date = gets.chomp
+    paid_date = Chronic.parse(paid_date)
     puts "Please enter a payment method:"
-    payment_response = ""
     payment_method = gets.chomp
 
     add_payment
+
     puts "Would you like to add your online account information now? (Y/N)"
     account_response = ""
     account_response = gets.chomp
@@ -99,6 +103,7 @@ def add_subscription
       password = gets.chomp
 
       add_account
+
       main_menu
     else
       main_menu
@@ -110,13 +115,21 @@ def add_subscription
 end
 
 def list_all_subscriptions
-  puts "Here are all of your subscriptions:"
-  @subscription.each do |name|
+  puts "\nHere are all of your subscriptions:\n\n"
     tp Subscription.all, :name, :type, :frequency, :price
-  end
+
   puts "\n"
   puts "\n"
 end
+
+def list_all_payments
+  puts "\nHere are all of your payments:\n\n"
+    @paid_sorted_payments = Payment.all.sort_by { |payment| payment[:date]}
+    tp @paid_sorted_payments, :name, :date_paid, :due_date, :amount, :payment_method
+
+  puts "\n"
+  puts "\n"
+
 
 def add_payment
   @payment << Payment.new(:subscription_name=>'name', :amount=>'amount', :paid_date=>'paid_date', :due_date=>'due_date',:payment_method=>'payment_method').save
